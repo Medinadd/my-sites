@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Sites</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 32px;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .add-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .add-form input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #2e2e3a;
+      background: #1a1b25;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .add-form input:focus {
+      border-color: #5b6af0;
+    }
+
+    .add-form input::placeholder {
+      color: #555;
+    }
+
+    .add-form button {
+      padding: 12px 22px;
+      border-radius: 8px;
+      border: none;
+      background: #5b6af0;
+      color: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .add-form button:hover { background: #4a58dc; }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #1a1b25;
+      border: 1px solid #2e2e3a;
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: border-color 0.2s;
+    }
+
+    .item:hover { border-color: #5b6af0; }
+
+    .num {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #5b6af0;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .label {
+      font-size: 0.82rem;
+      color: #888;
+      margin-bottom: 2px;
+    }
+
+    .link {
+      color: #7eb8f7;
+      text-decoration: none;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+
+    .link:hover { text-decoration: underline; }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-icon {
+      background: none;
+      border: 1px solid #2e2e3a;
+      border-radius: 6px;
+      color: #888;
+      cursor: pointer;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover { border-color: #e05555; color: #e05555; }
+
+    .empty {
+      text-align: center;
+      color: #444;
+      padding: 48px 0;
+      font-size: 0.95rem;
+    }
+
+    /* Edit modal */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 10;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: #1a1b25;
+      border: 1px solid #2e2e3a;
+      border-radius: 12px;
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .modal h2 { margin-bottom: 18px; font-size: 1.1rem; }
+
+    .modal input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      border: 1px solid #2e2e3a;
+      background: #0f1117;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    .modal input:focus { border-color: #5b6af0; }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .btn-save {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: #5b6af0;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .btn-cancel {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid #2e2e3a;
+      background: none;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Sites</h1>
+
+    <div class="add-form">
+      <input id="labelInput" type="text" placeholder="Label (optional)" />
+      <input id="urlInput" type="url" placeholder="https://example.com" />
+      <button onclick="addSite()">+ Add</button>
+    </div>
+
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty">No sites saved yet. Add your first one above.</div>
+  </div>
+
+  <!-- Edit modal -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <h2>Edit Site</h2>
+      <input id="editLabel" type="text" placeholder="Label (optional)" />
+      <input id="editUrl" type="url" placeholder="https://example.com" />
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-save" onclick="saveEdit()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let sites = JSON.parse(localStorage.getItem('my-sites') || '[]');
+    let editIndex = null;
+
+    function save() {
+      localStorage.setItem('my-sites', JSON.stringify(sites));
+    }
+
+    function render() {
+      const list = document.getElementById('list');
+      const empty = document.getElementById('empty');
+      list.innerHTML = '';
+      empty.style.display = sites.length ? 'none' : 'block';
+
+      sites.forEach((site, i) => {
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.innerHTML = `
+          <div class="num">#${i + 1}</div>
+          <div class="info">
+            ${site.label ? `<div class="label">${escHtml(site.label)}</div>` : ''}
+            <a class="link" href="${escHtml(site.url)}" target="_blank" rel="noopener">${escHtml(site.url)}</a>
+          </div>
+          <div class="actions">
+            <button class="btn-icon" title="Edit" onclick="openEdit(${i})">✏️</button>
+            <button class="btn-icon" title="Delete" onclick="deleteSite(${i})">🗑</button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function escHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function addSite() {
+      const url = document.getElementById('urlInput').value.trim();
+      const label = document.getElementById('labelInput').value.trim();
+      if (!url) return alert('Please enter a URL.');
+      sites.push({ url, label });
+      save();
+      render();
+      document.getElementById('urlInput').value = '';
+      document.getElementById('labelInput').value = '';
+    }
+
+    function deleteSite(i) {
+      if (!confirm('Remove this site?')) return;
+      sites.splice(i, 1);
+      save();
+      render();
+    }
+
+    function openEdit(i) {
+      editIndex = i;
+      document.getElementById('editLabel').value = sites[i].label || '';
+      document.getElementById('editUrl').value = sites[i].url;
+      document.getElementById('overlay').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('overlay').classList.remove('open');
+      editIndex = null;
+    }
+
+    function saveEdit() {
+      const url = document.getElementById('editUrl').value.trim();
+      const label = document.getElementById('editLabel').value.trim();
+      if (!url) return alert('Please enter a URL.');
+      sites[editIndex] = { url, label };
+      save();
+      render();
+      closeModal();
+    }
+
+    document.getElementById('overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    document.getElementById('urlInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addSite();
+    });
+
+    render();
+  </script>
+</body>
+</html>
