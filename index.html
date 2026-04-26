@@ -150,6 +150,16 @@
       color: #e05555;
     }
 
+    .btn-copy:hover {
+      border-color: #5b6af0;
+      color: #5b6af0;
+    }
+
+    .btn-copy.copied {
+      border-color: #4caf7d;
+      color: #4caf7d;
+    }
+
     .empty {
       text-align: center;
       color: #444;
@@ -294,11 +304,23 @@
             <a class="link" href="${escHtml(site.url)}" target="_blank" rel="noopener">${escHtml(site.url)}</a>
           </div>
           <div class="actions">
+            <button class="btn-icon btn-copy" title="Copy URL" onclick="copyUrl(this, ${i})">📋</button>
             <button class="btn-icon" title="Edit" onclick="openEdit(${i})">✏️</button>
             <button class="btn-icon" title="Delete" onclick="deleteSite(${i})">🗑</button>
           </div>
         `;
         list.appendChild(item);
+      });
+    }
+
+    function copyUrl(btn, i) {
+      navigator.clipboard.writeText(sites[i].url).then(() => {
+        btn.textContent = '✅';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋';
+          btn.classList.remove('copied');
+        }, 1500);
       });
     }
 
