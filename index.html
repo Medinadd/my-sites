@@ -237,7 +237,19 @@
   </div>
 
   <script>
-    let sites = JSON.parse(localStorage.getItem('my-sites') || '[]');
+    const DEFAULT_SITES = [
+      { url: 'https://site-nu-ashen-55.vercel.app/', label: '' },
+      { url: 'https://site-eng-nine.vercel.app/', label: '' },
+      { url: 'https://pj6-one.vercel.app/', label: '' },
+      { url: 'https://pro4-delta.vercel.app/', label: '' },
+      { url: 'https://project3-six-mauve.vercel.app/', label: '' },
+      { url: 'https://pj7.vercel.app/', label: '' },
+      { url: 'https://pro5-plum.vercel.app/', label: '' },
+    ];
+
+    const stored = localStorage.getItem('my-sites');
+    let sites = stored ? JSON.parse(stored) : DEFAULT_SITES.slice();
+    if (!stored) localStorage.setItem('my-sites', JSON.stringify(sites));
     let editIndex = null;
 
     function save() {
