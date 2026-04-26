@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Sites</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -66,7 +71,9 @@
       white-space: nowrap;
     }
 
-    .add-form button:hover { background: #4a58dc; }
+    .add-form button:hover {
+      background: #4a58dc;
+    }
 
     .list {
       display: flex;
@@ -85,7 +92,9 @@
       transition: border-color 0.2s;
     }
 
-    .item:hover { border-color: #5b6af0; }
+    .item:hover {
+      border-color: #5b6af0;
+    }
 
     .num {
       font-size: 0.85rem;
@@ -116,7 +125,9 @@
       display: block;
     }
 
-    .link:hover { text-decoration: underline; }
+    .link:hover {
+      text-decoration: underline;
+    }
 
     .actions {
       display: flex;
@@ -134,7 +145,10 @@
       transition: all 0.2s;
     }
 
-    .btn-icon:hover { border-color: #e05555; color: #e05555; }
+    .btn-icon:hover {
+      border-color: #e05555;
+      color: #e05555;
+    }
 
     .empty {
       text-align: center;
@@ -148,13 +162,15 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.6);
       z-index: 10;
       align-items: center;
       justify-content: center;
     }
 
-    .overlay.open { display: flex; }
+    .overlay.open {
+      display: flex;
+    }
 
     .modal {
       background: #1a1b25;
@@ -165,7 +181,10 @@
       max-width: 440px;
     }
 
-    .modal h2 { margin-bottom: 18px; font-size: 1.1rem; }
+    .modal h2 {
+      margin-bottom: 18px;
+      font-size: 1.1rem;
+    }
 
     .modal input {
       width: 100%;
@@ -179,7 +198,9 @@
       margin-bottom: 10px;
     }
 
-    .modal input:focus { border-color: #5b6af0; }
+    .modal input:focus {
+      border-color: #5b6af0;
+    }
 
     .modal-actions {
       display: flex;
@@ -209,6 +230,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>My Sites</h1>
@@ -238,7 +260,7 @@
 
   <script>
     const DEFAULT_SITES = [
-      { url: 'https://site-nu-ashen-55.vercel.app/', label: '' },
+      { url: 'https://almatyforhome.xyz/', label: '' },
       { url: 'https://site-eng-nine.vercel.app/', label: '' },
       { url: 'https://pj6-one.vercel.app/', label: '' },
       { url: 'https://pro4-delta.vercel.app/', label: '' },
@@ -281,7 +303,7 @@
     }
 
     function escHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
     function addSite() {
@@ -324,7 +346,7 @@
       closeModal();
     }
 
-    document.getElementById('overlay').addEventListener('click', function(e) {
+    document.getElementById('overlay').addEventListener('click', function (e) {
       if (e.target === this) closeModal();
     });
 
@@ -335,4 +357,5 @@
     render();
   </script>
 </body>
+
 </html>
