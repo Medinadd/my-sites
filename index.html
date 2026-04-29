@@ -4,389 +4,247 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Sites</title>
+  <title>My Sites — Medina</title>
+  <meta name="description" content="Portfolio of conversion landing pages for Kazakh education businesses." />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0d12;
+      --surface: #161821;
+      --surface-2: #1d2030;
+      --border: #262a3a;
+      --text: #e7e9f0;
+      --muted: #8a8fa3;
+      --accent: #7c8cff;
+      --accent-hover: #6273ee;
+      --success: #4caf7d;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #0f1117;
-      color: #e0e0e0;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      padding: 40px 20px;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 32px;
-      color: #fff;
-      letter-spacing: 1px;
+      padding: 56px 20px 80px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 680px;
+      max-width: 880px;
       margin: 0 auto;
     }
 
-    .add-form {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 32px;
+    header {
+      margin-bottom: 40px;
     }
 
-    .add-form input {
-      flex: 1;
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid #2e2e3a;
-      background: #1a1b25;
-      color: #e0e0e0;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .add-form input:focus {
-      border-color: #5b6af0;
-    }
-
-    .add-form input::placeholder {
-      color: #555;
-    }
-
-    .add-form button {
-      padding: 12px 22px;
-      border-radius: 8px;
-      border: none;
-      background: #5b6af0;
+    h1 {
+      font-size: 1.75rem;
+      letter-spacing: -0.01em;
       color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--muted);
       font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      white-space: nowrap;
     }
 
-    .add-form button:hover {
-      background: #4a58dc;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 14px;
     }
 
-    .list {
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 18px 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      transition: border-color 0.15s, background 0.15s;
     }
 
-    .item {
+    .card:hover {
+      border-color: var(--accent);
+      background: var(--surface-2);
+    }
+
+    .card-head {
       display: flex;
       align-items: center;
-      gap: 14px;
-      background: #1a1b25;
-      border: 1px solid #2e2e3a;
-      border-radius: 10px;
-      padding: 14px 16px;
-      transition: border-color 0.2s;
+      gap: 12px;
     }
 
-    .item:hover {
-      border-color: #5b6af0;
+    .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: var(--surface-2);
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
     }
 
-    .num {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #5b6af0;
-      min-width: 28px;
-      text-align: center;
-    }
-
-    .info {
-      flex: 1;
-      overflow: hidden;
+    .name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
     }
 
     .label {
-      font-size: 0.82rem;
-      color: #888;
-      margin-bottom: 2px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 1px;
     }
 
-    .link {
-      color: #7eb8f7;
-      text-decoration: none;
-      font-size: 0.95rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: block;
-    }
-
-    .link:hover {
-      text-decoration: underline;
+    .url {
+      font-size: 0.85rem;
+      color: #93a3ff;
+      font-family: 'SF Mono', Menlo, monospace;
+      word-break: break-all;
     }
 
     .actions {
       display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       gap: 6px;
     }
 
-    .btn-icon {
-      background: none;
-      border: 1px solid #2e2e3a;
-      border-radius: 6px;
-      color: #888;
-      cursor: pointer;
-      padding: 6px 10px;
-      font-size: 0.8rem;
-      transition: all 0.2s;
+    .btn:hover {
+      background: var(--surface-2);
+      border-color: var(--accent);
+      color: #fff;
     }
 
-    .btn-icon:hover {
-      border-color: #e05555;
-      color: #e05555;
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
     }
 
-    .btn-copy:hover {
-      border-color: #5b6af0;
-      color: #5b6af0;
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
     }
 
     .btn-copy.copied {
-      border-color: #4caf7d;
-      color: #4caf7d;
+      border-color: var(--success);
+      color: var(--success);
     }
 
-    .empty {
+    footer {
+      margin-top: 56px;
       text-align: center;
-      color: #444;
-      padding: 48px 0;
-      font-size: 0.95rem;
+      color: var(--muted);
+      font-size: 0.8rem;
     }
 
-    /* Edit modal */
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 10;
-      align-items: center;
-      justify-content: center;
+    footer a {
+      color: var(--muted);
     }
 
-    .overlay.open {
-      display: flex;
-    }
-
-    .modal {
-      background: #1a1b25;
-      border: 1px solid #2e2e3a;
-      border-radius: 12px;
-      padding: 28px 24px;
-      width: 100%;
-      max-width: 440px;
-    }
-
-    .modal h2 {
-      margin-bottom: 18px;
-      font-size: 1.1rem;
-    }
-
-    .modal input {
-      width: 100%;
-      padding: 11px 14px;
-      border-radius: 8px;
-      border: 1px solid #2e2e3a;
-      background: #0f1117;
-      color: #e0e0e0;
-      font-size: 0.95rem;
-      outline: none;
-      margin-bottom: 10px;
-    }
-
-    .modal input:focus {
-      border-color: #5b6af0;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      margin-top: 8px;
-    }
-
-    .btn-save {
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: none;
-      background: #5b6af0;
-      color: #fff;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-
-    .btn-cancel {
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: 1px solid #2e2e3a;
-      background: none;
-      color: #aaa;
-      cursor: pointer;
-      font-size: 0.9rem;
+    @media (max-width: 480px) {
+      body { padding: 32px 14px 60px; }
+      .grid { grid-template-columns: 1fr; gap: 10px; }
+      h1 { font-size: 1.4rem; }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>My Sites</h1>
+    <header>
+      <h1>My Sites</h1>
+      <p class="subtitle">Conversion landing pages for Kazakh education businesses, plus the CMS that powers them.</p>
+    </header>
 
-    <div class="add-form">
-      <input id="labelInput" type="text" placeholder="Label (optional)" />
-      <input id="urlInput" type="url" placeholder="https://example.com" />
-      <button onclick="addSite()">+ Add</button>
-    </div>
+    <div class="grid" id="grid"></div>
 
-    <div class="list" id="list"></div>
-    <div class="empty" id="empty">No sites saved yet. Add your first one above.</div>
-  </div>
-
-  <!-- Edit modal -->
-  <div class="overlay" id="overlay">
-    <div class="modal">
-      <h2>Edit Site</h2>
-      <input id="editLabel" type="text" placeholder="Label (optional)" />
-      <input id="editUrl" type="url" placeholder="https://example.com" />
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-        <button class="btn-save" onclick="saveEdit()">Save</button>
-      </div>
-    </div>
+    <footer>
+      Built by Medina · <a href="mailto:medinakasen@gmail.com">medinakasen@gmail.com</a>
+    </footer>
   </div>
 
   <script>
-    const DEFAULTS_VERSION = '2026-04-29';
-    const DEFAULT_SITES = [
-      { url: 'https://almatyforhome.xyz/', label: 'Русский Лес — пиломатериалы' },
-      { url: 'https://aigul-bayadil.vercel.app/', label: 'Айгүл Баядил — IELTS' },
-      { url: 'https://abay-academy.vercel.app/', label: 'Abay Academy — онлайн-школа 2–11 классы' },
-      { url: 'https://studyroom-medina.vercel.app/', label: 'StudyRoom — IELTS/SAT, Алматы' },
-      { url: 'https://just-to-study.vercel.app/', label: 'Just To Study — английский онлайн' },
-      { url: 'https://jet-education-medina.vercel.app/', label: 'JET EDUCATION — магистратура' },
-      { url: 'https://iqra-academy-medina.vercel.app/', label: 'IQRA Academy — қазақ тілі' },
-      { url: 'https://medina-admin.vercel.app/', label: 'Admin panel (CMS)' },
+    const SITES = [
+      { icon: '🎓', name: 'Abay Academy', label: 'Онлайн-школа 2–11 классы', url: 'https://abay-academy.vercel.app' },
+      { icon: '✈️', name: 'JET EDUCATION', label: 'Магистратура дайындығы', url: 'https://jet-education-medina.vercel.app' },
+      { icon: '📚', name: 'StudyRoom', label: 'IELTS, SAT, поступление за рубеж · Алматы', url: 'https://studyroom-medina.vercel.app' },
+      { icon: '📖', name: 'IQRA Academy', label: 'Онлайн-курс казахского языка', url: 'https://iqra-academy-medina.vercel.app' },
+      { icon: '🇬🇧', name: 'Just To Study', label: 'Онлайн-школа английского', url: 'https://just-to-study.vercel.app' },
+      { icon: '📝', name: 'Айгүл Баядил', label: 'IELTS мұғалімі', url: 'https://aigul-bayadil.vercel.app' },
+      { icon: '🌲', name: 'Русский Лес', label: 'Пиломатериалы оптом и в розницу', url: 'https://almatyforhome.xyz' },
+      { icon: '⚙️', name: 'Admin Panel', label: 'CMS for site owners', url: 'https://medina-admin.vercel.app' },
     ];
 
-    const savedVersion = localStorage.getItem('my-sites-v');
-    let sites;
-    if (savedVersion !== DEFAULTS_VERSION) {
-      sites = DEFAULT_SITES.slice();
-      localStorage.setItem('my-sites', JSON.stringify(sites));
-      localStorage.setItem('my-sites-v', DEFAULTS_VERSION);
-    } else {
-      const stored = localStorage.getItem('my-sites');
-      sites = stored ? JSON.parse(stored) : DEFAULT_SITES.slice();
-      if (!stored) localStorage.setItem('my-sites', JSON.stringify(sites));
-    }
-    let editIndex = null;
-
-    function save() {
-      localStorage.setItem('my-sites', JSON.stringify(sites));
+    function escHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    function render() {
-      const list = document.getElementById('list');
-      const empty = document.getElementById('empty');
-      list.innerHTML = '';
-      empty.style.display = sites.length ? 'none' : 'block';
+    function urlPretty(u) {
+      return u.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    }
 
-      sites.forEach((site, i) => {
-        const item = document.createElement('div');
-        item.className = 'item';
-        item.innerHTML = `
-          <div class="num">#${i + 1}</div>
-          <div class="info">
-            ${site.label ? `<div class="label">${escHtml(site.label)}</div>` : ''}
-            <a class="link" href="${escHtml(site.url)}" target="_blank" rel="noopener">${escHtml(site.url)}</a>
+    const grid = document.getElementById('grid');
+    SITES.forEach((s, i) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-head">
+          <div class="icon">${s.icon}</div>
+          <div>
+            <div class="name">${escHtml(s.name)}</div>
+            <div class="label">${escHtml(s.label)}</div>
           </div>
-          <div class="actions">
-            <button class="btn-icon btn-copy" title="Copy URL" onclick="copyUrl(this, ${i})">📋</button>
-            <button class="btn-icon" title="Edit" onclick="openEdit(${i})">✏️</button>
-            <button class="btn-icon" title="Delete" onclick="deleteSite(${i})">🗑</button>
-          </div>
-        `;
-        list.appendChild(item);
-      });
-    }
+        </div>
+        <div class="url">${escHtml(urlPretty(s.url))}</div>
+        <div class="actions">
+          <button class="btn btn-copy" data-i="${i}" title="Copy URL">Copy</button>
+          <a class="btn btn-primary" href="${escHtml(s.url)}" target="_blank" rel="noopener">Visit →</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
 
-    function copyUrl(btn, i) {
-      navigator.clipboard.writeText(sites[i].url).then(() => {
-        btn.textContent = '✅';
+    grid.addEventListener('click', e => {
+      const btn = e.target.closest('.btn-copy');
+      if (!btn) return;
+      const i = +btn.dataset.i;
+      navigator.clipboard.writeText(SITES[i].url).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied ✓';
         btn.classList.add('copied');
         setTimeout(() => {
-          btn.textContent = '📋';
+          btn.textContent = original;
           btn.classList.remove('copied');
-        }, 1500);
+        }, 1400);
       });
-    }
-
-    function escHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    function addSite() {
-      const url = document.getElementById('urlInput').value.trim();
-      const label = document.getElementById('labelInput').value.trim();
-      if (!url) return alert('Please enter a URL.');
-      sites.push({ url, label });
-      save();
-      render();
-      document.getElementById('urlInput').value = '';
-      document.getElementById('labelInput').value = '';
-    }
-
-    function deleteSite(i) {
-      if (!confirm('Remove this site?')) return;
-      sites.splice(i, 1);
-      save();
-      render();
-    }
-
-    function openEdit(i) {
-      editIndex = i;
-      document.getElementById('editLabel').value = sites[i].label || '';
-      document.getElementById('editUrl').value = sites[i].url;
-      document.getElementById('overlay').classList.add('open');
-    }
-
-    function closeModal() {
-      document.getElementById('overlay').classList.remove('open');
-      editIndex = null;
-    }
-
-    function saveEdit() {
-      const url = document.getElementById('editUrl').value.trim();
-      const label = document.getElementById('editLabel').value.trim();
-      if (!url) return alert('Please enter a URL.');
-      sites[editIndex] = { url, label };
-      save();
-      render();
-      closeModal();
-    }
-
-    document.getElementById('overlay').addEventListener('click', function (e) {
-      if (e.target === this) closeModal();
     });
-
-    document.getElementById('urlInput').addEventListener('keydown', e => {
-      if (e.key === 'Enter') addSite();
-    });
-
-    render();
   </script>
 </body>
 
