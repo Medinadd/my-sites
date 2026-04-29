@@ -269,19 +269,29 @@
   </div>
 
   <script>
+    const DEFAULTS_VERSION = '2026-04-29';
     const DEFAULT_SITES = [
-      { url: 'https://almatyforhome.xyz/', label: '' },
-      { url: 'https://site-eng-nine.vercel.app/', label: '' },
-      { url: 'https://pj6-one.vercel.app/', label: '' },
-      { url: 'https://pro4-delta.vercel.app/', label: '' },
-      { url: 'https://project3-six-mauve.vercel.app/', label: '' },
-      { url: 'https://pj7.vercel.app/', label: '' },
-      { url: 'https://pro5-plum.vercel.app/', label: '' },
+      { url: 'https://almatyforhome.xyz/', label: 'Русский Лес — пиломатериалы' },
+      { url: 'https://aigul-bayadil.vercel.app/', label: 'Айгүл Баядил — IELTS' },
+      { url: 'https://abay-academy.vercel.app/', label: 'Abay Academy — онлайн-школа 2–11 классы' },
+      { url: 'https://studyroom-medina.vercel.app/', label: 'StudyRoom — IELTS/SAT, Алматы' },
+      { url: 'https://just-to-study.vercel.app/', label: 'Just To Study — английский онлайн' },
+      { url: 'https://jet-education-medina.vercel.app/', label: 'JET EDUCATION — магистратура' },
+      { url: 'https://iqra-academy-medina.vercel.app/', label: 'IQRA Academy — қазақ тілі' },
+      { url: 'https://medina-admin.vercel.app/', label: 'Admin panel (CMS)' },
     ];
 
-    const stored = localStorage.getItem('my-sites');
-    let sites = stored ? JSON.parse(stored) : DEFAULT_SITES.slice();
-    if (!stored) localStorage.setItem('my-sites', JSON.stringify(sites));
+    const savedVersion = localStorage.getItem('my-sites-v');
+    let sites;
+    if (savedVersion !== DEFAULTS_VERSION) {
+      sites = DEFAULT_SITES.slice();
+      localStorage.setItem('my-sites', JSON.stringify(sites));
+      localStorage.setItem('my-sites-v', DEFAULTS_VERSION);
+    } else {
+      const stored = localStorage.getItem('my-sites');
+      sites = stored ? JSON.parse(stored) : DEFAULT_SITES.slice();
+      if (!stored) localStorage.setItem('my-sites', JSON.stringify(sites));
+    }
     let editIndex = null;
 
     function save() {
