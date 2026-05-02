@@ -68,6 +68,19 @@
       color: var(--accent);
     }
 
+    .num {
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-variant-numeric: tabular-nums;
+      font-family: 'SF Mono', Menlo, monospace;
+      min-width: 26px;
+      flex-shrink: 0;
+    }
+
+    li a:hover .num {
+      color: var(--accent);
+    }
+
     .name {
       font-weight: 500;
     }
@@ -155,10 +168,13 @@
     }
 
     const list = document.getElementById('list');
-    SITES.forEach(s => {
+    const pad = String(SITES.length).length;
+    SITES.forEach((s, i) => {
       const li = document.createElement('li');
+      const n = String(i + 1).padStart(pad, '0');
       li.innerHTML = `
         <a href="${escHtml(s.url)}" target="_blank" rel="noopener">
+          <span class="num">${n}</span>
           <span class="name">${escHtml(s.name)}</span>
           <span class="label">${escHtml(s.label)}</span>
           <span class="url">${escHtml(urlPretty(s.url))}</span>
